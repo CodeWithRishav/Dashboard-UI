@@ -22,6 +22,10 @@
     --box-shadow: 0 2rem 3rem var(--color-light);
 }
 
+input{
+    height:20px;
+}
+
 .dark-mode-variables{
     --color-background: #181a1e;
     --color-white: #202528;
@@ -220,6 +224,13 @@ aside .sidebar .message-count{
     border-radius: var(--border-radius-1);
 }
 
+upload{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
 main{
     margin-top: 1.4rem;
 }
@@ -228,6 +239,7 @@ main .analyse{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.6rem;
+    margin-top: 100px;
 }
 
 main .analyse > div{
