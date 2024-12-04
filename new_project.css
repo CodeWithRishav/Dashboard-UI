@@ -1,5 +1,107 @@
-.cont{
-    border: solid black 2px;
-    height: 400px;
-    margin : auto 40px;
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+/* Page Title */
+.page-title {
+    font-size: 2rem;
+    color: #343a40;
+    margin-bottom: 2rem;
+}
+
+/* Image Container */
+.image-container {
+    margin: 2rem 0;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: #fff;
+}
+
+/* Image Preview Area */
+.image-preview-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.image-item {
+    text-align: center;
+    width: 100px;
+    margin: 0.5rem;
+}
+
+.preview-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.image-item p {
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 0.5rem;
+}
+
+/* Buttons */
+.buttons, .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .image-item {
+        width: 80px;
+    }
+
+    .preview-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+    }
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,5 +12,83 @@
 
         <input type = "file"></input>
     </div>
+</body>
+</html> -->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Project</title>
+    <link rel="stylesheet" href="new_project.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">Create New Project</h1>
+        
+        <!-- Scrollable Image Container -->
+        <div class="image-container">
+            <div class="image-preview-area" id="imagePreviewArea">
+                <!-- Uploaded image previews will appear here -->
+            </div>
+        </div>
+
+        <!-- Buttons Section -->
+        <div class="buttons">
+            <button id="addMoreBtn" class="btn">+ Add More</button>
+            <button id="removeAllBtn" class="btn">Remove All</button>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button id="processBtn" class="btn">Proceed</button>
+            <button id="stitchBtn" class="btn">Stitch Masks</button>
+            <button id="saveBtn" class="btn">Save the Masks</button>
+        </div>
+
+        <!-- Hidden File Input -->
+        <input type="file" id="imageUpload" class="file-input" multiple accept="image/*" hidden>
+    </div>
+
+    <script>
+        const imageUpload = document.getElementById('imageUpload');
+        const imagePreviewArea = document.getElementById('imagePreviewArea');
+        const addMoreBtn = document.getElementById('addMoreBtn');
+        const removeAllBtn = document.getElementById('removeAllBtn');
+
+        // Handle Add More button click
+        addMoreBtn.addEventListener('click', () => {
+            imageUpload.click();
+        });
+
+        // Display uploaded images
+        imageUpload.addEventListener('change', (event) => {
+            const files = event.target.files;
+            for (const file of files) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const imgContainer = document.createElement('div');
+                    imgContainer.classList.add('image-item');
+
+                    imgContainer.innerHTML = `
+                        <img src="${e.target.result}" alt="Preview" class="preview-img">
+                        <p>${file.name}</p>
+                    `;
+                    imagePreviewArea.appendChild(imgContainer);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Remove all images
+        removeAllBtn.addEventListener('click', () => {
+            imagePreviewArea.innerHTML = '';
+        });
+    </script>
 </body>
 </html>
