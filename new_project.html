@@ -24,71 +24,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New Project</title>
-    <link rel="stylesheet" href="new_project.css">
+    <title>Image Upload and Preview</title>
+    <link rel="stylesheet" href="upload.css">
 </head>
 <body>
     <div class="container">
-        <h1 class="page-title">Create New Project</h1>
-        
-        <!-- Scrollable Image Container -->
-        <div class="image-container">
-            <div class="image-preview-area" id="imagePreviewArea">
-                <!-- Uploaded image previews will appear here -->
+        <!-- Upload Screen -->
+        <div id="upload-screen">
+            <h1>Create New Project</h1>
+            <div class="upload-area">
+                <label for="upload-input" class="upload-box">
+                    <span>+</span>
+                    <p>Upload Images</p>
+                </label>
+                <input type="file" id="upload-input" accept="image/*" multiple hidden>
+                <p class="upload-info">Upload images to view masks/road networks</p>
+            </div>
+            <div class="navigation-buttons">
+                <button id="back-button" class="button">Back</button>
+                <button id="next-button" class="button">Next</button>
             </div>
         </div>
 
-        <!-- Buttons Section -->
-        <div class="buttons">
-            <button id="addMoreBtn" class="btn">+ Add More</button>
-            <button id="removeAllBtn" class="btn">Remove All</button>
+        <!-- Preview Screen -->
+        <div id="preview-screen" style="display: none;">
+            <h1>Uploaded Images</h1>
+            <div class="image-container" id="image-container"></div>
+            <div class="action-buttons">
+                <button id="add-more-button" class="button">Add More</button>
+                <button id="remove-all-button" class="button">Remove All</button>
+                <button id="proceed-button" class="button">Proceed</button>
+                <button id="stitch-button" class="button">Stitch Masks</button>
+                <button id="save-button" class="button">Save the Masks</button>
+            </div>
         </div>
-
-        <!-- Action Buttons -->
-        <div class="action-buttons">
-            <button id="processBtn" class="btn">Proceed</button>
-            <button id="stitchBtn" class="btn">Stitch Masks</button>
-            <button id="saveBtn" class="btn">Save the Masks</button>
-        </div>
-
-        <!-- Hidden File Input -->
-        <input type="file" id="imageUpload" class="file-input" multiple accept="image/*" hidden>
     </div>
 
     <script>
-        const imageUpload = document.getElementById('imageUpload');
-        const imagePreviewArea = document.getElementById('imagePreviewArea');
-        const addMoreBtn = document.getElementById('addMoreBtn');
-        const removeAllBtn = document.getElementById('removeAllBtn');
+        const uploadInput = document.getElementById("upload-input");
+        const nextButton = document.getElementById("next-button");
+        const backButton = document.getElementById("back-button");
+        const uploadScreen = document.getElementById("upload-screen");
+        const previewScreen = document.getElementById("preview-screen");
+        const imageContainer = document.getElementById("image-container");
+        const addMoreButton = document.getElementById("add-more-button");
+        const removeAllButton = document.getElementById("remove-all-button");
 
-        // Handle Add More button click
-        addMoreBtn.addEventListener('click', () => {
-            imageUpload.click();
+        let uploadedImages = [];
+
+        // Handle Upload Input
+        uploadInput.addEventListener("change", () => {
+            const files = Array.from(uploadInput.files);
+            uploadedImages.push(...files);
+            displayImages();
         });
 
-        // Display uploaded images
-        imageUpload.addEventListener('change', (event) => {
-            const files = event.target.files;
-            for (const file of files) {
+        // Display Uploaded Images
+        function displayImages() {
+            imageContainer.innerHTML = ""; // Clear container
+            uploadedImages.forEach((file, index) => {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    const imgContainer = document.createElement('div');
-                    imgContainer.classList.add('image-item');
-
-                    imgContainer.innerHTML = `
-                        <img src="${e.target.result}" alt="Preview" class="preview-img">
+                    const previewDiv = document.createElement("div");
+                    previewDiv.classList.add("image-preview");
+                    previewDiv.innerHTML = `
+                        <img src="${e.target.result}" alt="Uploaded Image">
                         <p>${file.name}</p>
                     `;
-                    imagePreviewArea.appendChild(imgContainer);
+                    imageContainer.appendChild(previewDiv);
                 };
                 reader.readAsDataURL(file);
+            });
+        }
+
+        // Handle Next Button
+        nextButton.addEventListener("click", () => {
+            if (uploadedImages.length === 0) {
+                alert("Please upload at least one image!");
+                return;
             }
+            uploadScreen.style.display = "none";
+            previewScreen.style.display = "block";
         });
 
-        // Remove all images
-        removeAllBtn.addEventListener('click', () => {
-            imagePreviewArea.innerHTML = '';
+        // Handle Back Button
+        backButton.addEventListener("click", () => {
+            uploadScreen.style.display = "block";
+            previewScreen.style.display = "none";
+        });
+
+        // Add More Images
+        addMoreButton.addEventListener("click", () => {
+            uploadInput.click();
+        });
+
+        // Remove All Images
+        removeAllButton.addEventListener("click", () => {
+            uploadedImages = [];
+            displayImages();
         });
     </script>
 </body>
 </html>
+
+
+

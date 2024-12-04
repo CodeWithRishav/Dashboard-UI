@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+    <link rel="stylesheet" href="test.css">
+</head>
+<body>
+    <!-- Upload Image Screen -->
+    <div class="container" id="upload-screen">
+        <h1>Upload Images</h1>
+        <div class="upload-area">
+            <label for="upload-input" class="upload-box">
+                <span>+</span>
+                <p>Click to Upload Images</p>
+            </label>
+            <input type="file" id="upload-input" accept="image/*" multiple hidden>
+            <p class="upload-info">Upload images to view and proceed</p>
+        </div>
+        <div class="navigation-buttons">
+            <button id="back-button" class="button">Back</button>
+            <button id="next-button" class="button">Next</button>
+        </div>
+    </div>
+
+    <!-- Next Page Functionality -->
+    <div class="container" id="next-screen" style="display: none;">
+        <h1>Preview Uploaded Images</h1>
+        <div id="preview-area" class="preview-area"></div>
+        <div class="navigation-buttons">
+            <button id="back-to-upload" class="button">Back</button>
+            <button id="submit-button" class="button">Submit</button>
+        </div>
+    </div>
+
+    <script>
+        const uploadScreen = document.getElementById("upload-screen");
+        const nextScreen = document.getElementById("next-screen");
+        const uploadInput = document.getElementById("upload-input");
+        const previewArea = document.getElementById("preview-area");
+        const nextButton = document.getElementById("next-button");
+        const backToUploadButton = document.getElementById("back-to-upload");
+        const submitButton = document.getElementById("submit-button");
+
+        // Handle image upload and display previews
+        uploadInput.addEventListener("change", () => {
+            const files = Array.from(uploadInput.files);
+            previewArea.innerHTML = ""; // Clear previous previews
+            files.forEach((file) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = document.createElement("img");
+                    img.src = e.target.result;
+                    img.alt = "Uploaded Image";
+                    img.className = "preview-image";
+                    previewArea.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        // Navigate to the next screen
+        nextButton.addEventListener("click", () => {
+            if (uploadInput.files.length === 0) {
+                alert("Please upload at least one image before proceeding!");
+            } else {
+                uploadScreen.style.display = "none";
+                nextScreen.style.display = "block";
+            }
+        });
+
+        // Navigate back to the upload screen
+        backToUploadButton.addEventListener("click", () => {
+            nextScreen.style.display = "none";
+            uploadScreen.style.display = "block";
+        });
+
+        // Handle the submit button
+        submitButton.addEventListener("click", () => {
+            alert("Images submitted successfully!");
+            // Add your submission logic here
+        });
+    </script>
+</body>
+</html>
