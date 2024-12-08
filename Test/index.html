@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-Screen Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header>
+            <h1>Road Detection Dashboard</h1>
+        </header>
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab('side-by-side')">Side-by-Side View</button>
+            <button class="tab-button" onclick="openTab('overlay-view')">Overlay View</button>
+            <button class="tab-button" onclick="openTab('map-view')">Map View</button>
+            <button class="tab-button" onclick="openTab('detected-changes')">Detected Changes</button>
+        </div>
+        <div id="side-by-side" class="tab-content active">
+            <h2>Side-by-Side View</h2>
+            <div class="image-mask-container">
+                <!-- Example images for side-by-side view -->
+                <div class="image-pair">
+                    <img src="Rishav Kumar.jpg" alt="Original Image 1" class="tab-image">
+                    <img src="Rishav Kumar.jpg" alt="Mask Image 1" class="tab-image">
+                </div>
+                <div class="image-pair">
+                    <img src="Rishav Kumar.jpg" alt="Original Image 2" class="tab-image">
+                    <img src="Rishav Kumar.jpg" alt="Mask Image 2" class="tab-image">
+                </div>
+                <div class="image-pair">
+                    <img src="Rishav Kumar.jpg" alt="Original Image 3" class="tab-image">
+                    <img src="Rishav Kumar.jpg" alt="Mask Image 3" class="tab-image">
+                </div>
+                <!-- Add more image pairs as needed -->
+            </div>
+        </div>
+        <div id="overlay-view" class="tab-content">
+            <h2>Overlay View</h2>
+            <div class="overlay-container">
+                <img src="image.jpg" alt="Overlay Image" class="overlay-image">
+                <input type="range" class="overlay-slider" min="0" max="100" value="50" onchange="adjustTransparency(this.value)">
+            </div>
+        </div>
+        <div id="map-view" class="tab-content">
+            <h2>Map View</h2>
+            <div class="map-container">
+                <p>Google Maps-like view here.</p>
+                <select class="layer-select">
+                    <option value="satellite">Satellite View</option>
+                    <option value="road-mask">Road Mask</option>
+                    <option value="detected-changes">Detected Changes</option>
+                </select>
+            </div>
+        </div>
+        <div id="detected-changes" class="tab-content">
+            <h2>Detected Changes</h2>
+            <div class="detected-changes-container">
+                <img src="change.jpg" alt="Change Detection" class="tab-image">
+            </div>
+        </div>
+        <footer>
+            <button class="btn-primary" onclick="editDatabase()">Edit Database</button>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
